@@ -21,25 +21,23 @@ Model yang telah dibuat ini diharapkan untuk dapat digunakan sebagai langkah ant
 
 ## Business Understanding
 
-Pada bagian ini, kamu perlu menjelaskan proses klarifikasi masalah.
-
-Bagian laporan ini mencakup:
+Dari penjelasan latar belakang di atas, dapat dibuat rumusan masalah sebagai berikut
 
 ### Problem Statements
 
-Menjelaskan pernyataan masalah latar belakang:
-- Pernyataan Masalah 1
-- Pernyataan Masalah 2
-- Pernyataan Masalah n
-
+- Bagaimana menyiapkan data yang diperlukan untuk membuat model machine learning?
+- Bagaimana cara membuat model machine learning untuk kebutuhan klasifikasi jenis kejahatan?
 ### Goals
 
-Menjelaskan tujuan dari pernyataan masalah:
-- Jawaban pernyataan masalah 1
-- Jawaban pernyataan masalah 2
-- Jawaban pernyataan masalah n
+Berdasarkan rumusan masalah sebelumnya, dapat dibuatkan tujuan laporan sebagai berikut
+- Melakukan tahapan persiapan data, agar data yang sudah disiapkan dapat dimasukkan ke dalam model
+- Membuat model machine learning untuk mengklasifikasikan jenis kejahatan
+### Solution Statemnent
 
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
+Berdasarkan dari tujuan, didapatkan beberapa solusi untuk menjawab rumusan masalah sebagai berikut
+
+- Melakukan pembagian pada data menjadi data train data data test dengan rasio sebesar 80:20
+- Menggunakan 3 algoritma yaitu blablabla. untuk membandingkan akurasi dari 3 algoritma yang diujikan
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
 - Menambahkan bagian “Solution Statement” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut: 
