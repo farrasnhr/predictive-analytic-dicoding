@@ -39,15 +39,24 @@ Berdasarkan dari tujuan, didapatkan beberapa solusi untuk menjawab rumusan masal
 - Melakukan pembagian pada data menjadi data train data data test dengan rasio sebesar 80:20
 - Menggunakan 3 algoritma yaitu blablabla. untuk membandingkan akurasi dari 3 algoritma yang diujikan
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Menambahkan bagian “Solution Statement” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut: 
-
     ### Solution statements
     - Mengajukan 2 atau lebih solution statement. Misalnya, menggunakan dua atau lebih algoritma untuk mencapai solusi yang diinginkan atau melakukan improvement pada baseline model dengan hyperparameter tuning.
     - Solusi yang diberikan harus dapat terukur dengan metrik evaluasi.
 
 ## Data Understanding
 Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
+
+Dataset yang digunakan untuk proyek ini adalah "Chicago Crime Dataset 2018 to 2021" yang diambil dari laman Kaggle. Dataset tersebut memiliki 4 file dengan format csv berukuran 226.34 MB
+
+Dikarenakan kriteria dari Dicoding untuk menggunakan data kuantitatif, di proyek ini akan menghapus beberapa fitur yang tidak digunakan dan hanya akan menggunakan fitur dengan tipe data numeric pada dataset tersebut, diantaranya:
+- Latitude
+  Fitur ini berisi tentang informasi koordinasi lokasi berupa garis lintang
+- Longitude
+  Fitur ini berisi tentang informasi koordinasi lokasi berupa garis bujur
+- Hour
+  Fitur ini berisi tentang informasi waktu kejadian, fitur ini bentuknya        dalam format jam (0-23)
+- Day of Week
+  Fitur ini berisi tentang hari kejadian dalam seminggu, dimulai dari 0 yaitu hari Senin dan berakhir di angka 6 yaitu Ahad
 
 Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
 
