@@ -48,6 +48,7 @@ Dataset yang telah diunduh, masih perlu dilakukan penyesuaian sampai dataset dap
 - Mengganti tipe data pada kolom Date menjadi "datetime64" dan melakukan ekstraksi kolom Date untuk mendapatkan hari (Day), dan Jam (Hour) untuk kebutuhan EDA.
 
 Setelah proses penyesuaian pada dataset, dilakukan EDA untuk melihat informasi apa saja yang didapatkan:
+
 ### Deskripsi Variabel
 
 | #  | Column               | Non-Null Count | Dtype          |
@@ -130,6 +131,9 @@ print(f"Jumlah baris setelah menghapus duplicates: {after}")
 Dari script diatas terdapat `930769` duplikasi identik, dan setelah penghapusan duplikasi menghasilkan total baris senilai `929122`
 
 ### Penanganan Outliers
+Tahapan ini untuk melihat informasi berupa outliers pada dataset.
+
+![beforeoutliers](https://github.com/user-attachments/assets/69e37e69-785f-4fe8-8aa0-4f4d0409ff96)
 
 Dari gambar diatas terdapat *outliers* pada `Longitude` dan `Latitude`, maka dari itu akan dilakukan penghapusan *outliers* dengan menggunakan metode IQR, dengan formula IQR sebagai berikut:
 
@@ -141,17 +145,20 @@ Dari gambar diatas terdapat *outliers* pada `Longitude` dan `Latitude`, maka dar
    
    $BatasAtas=Q_3-1.5*IQR$
 
+
 Setelah dilakukan penghapusan *outliers*, dilakukan pengecekan kembali untuk melihat *outliers*, dan jumlah baris menurun menjadi `924193` baris.
 
-*Gambar*
+![afteroutliers](https://github.com/user-attachments/assets/106f6dad-f03c-4589-bb28-4bfa736f40f7)
 
-Gambar diatas menunjukkan terdapat masih terdapat *outliers*, tetapi outliers tersebut masih di batas aman.
+Gambar diatas menunjukkan tidak ada *outliers* pada `Latitude`, pada `Longitude` terdapat masih terdapat *outliers*, tetapi outliers tersebut masih di batas aman.
+
 
 ### Univariate Analysis
 Tahapan ini ditujukan unutk melihat informasi dari fitur numerik pada dataset, berikut informasi dalam bentuk histogram:
 
+![univariate](https://github.com/user-attachments/assets/1ee81328-14de-4070-9f20-7182ae8b0cd0)
 
-dari hasil histogram diatas dapat diuraikan sebagai berikut
+Dari hasil histogram diatas dapat diuraikan sebagai berikut:
 1. `Date`: 
    - Distribusi kejadian kriminalitas berdasarkan tanggal. Kejahatan cenderung merata sepanjang tahun, meskipun ada beberapa variasi pada periode tertentu. Ada penurunan aktivitas kejahatan pada pertengahan 2020 yang mungkin terkait dengan pembatasan aktivitas akibat pandemi COVID-19.
 
@@ -175,6 +182,63 @@ dari hasil histogram diatas dapat diuraikan sebagai berikut
 
 8. `Day of Week`: 
    - Distribusi kejadian kejahatan berdasarkan hari dalam seminggu. Secara umum, tingkat kejahatan terlihat cukup merata sepanjang minggu, tanpa variasi signifikan antara hari-hari yang berbeda.
+
+### Multivariate Analysis
+
+Pada Multivariate Analysis akan menunjukkan informasi berupa 1 variabel berkaitan dengan variabel lain, beberapa informasi yang dapat ditujukan:
+
+1. Fitur Kategori
+   Pada fitur kategori ini diberikan informasi sebagai berikut:
+   - Distribusi jenis kejahatan berdasarkan jam kejadian
+     ![Distribusi Jenis Kejahatan berdasarkan Jam Kejadian](https://github.com/user-attachments/assets/0fa010bb-de85-4e01-91c7-78a8f88be688)
+   - Distribusi jenis kejahatan berdasarkan hari dalam seminggu
+     ![Distribusi Jenis Kejahatan Berdasarkan Hari dalam Seminggu](https://github.com/user-attachments/assets/b6d4a455-4585-4e96-8183-7fd1aae17d06)
+   - Rata-rata jam kejadian per jenis kejahatan
+     ![Rata-rata Jam Kejadian per Jenis Kejahatan](https://github.com/user-attachments/assets/e7b4353c-0c0d-4875-9370-27ba6e9e96b6)
+   - Jenis kejahatan berdasarkan Hour, Arrest, dan Domestic
+     ![Jenis Kejahatan Berdasarkan Jam, Arrest, dan Domestic](https://github.com/user-attachments/assets/c884ca1c-7f1c-41a5-ab23-7e36e743f5c0)
+   - Distribusi lokasi kejahatan berdasarkan Community Area
+     ![Distribusi Lokasi Kejahatan Berdasarkan Community Area](https://github.com/user-attachments/assets/130b61e4-130c-4c43-a054-6c7345e23f41)
+   - Distribusi jenis kejahatan berdasarkan Lokasi
+     ![Distribusi Jenis Kejahatan Berdasarkan Lokasi](https://github.com/user-attachments/assets/a5fae387-6685-4a9e-a8f9-69bd1c1fb4be)
+   - Distribusi lokasi kejahatan berdasarkan waktu (Hour)
+     ![Distribusi Lokasi Kejahatan Berdasarkan Waktu (Hour)](https://github.com/user-attachments/assets/a98526dd-4037-4183-a452-700a4fc9b759)
+2. Fitur Numerik
+   ![multivariate](https://github.com/user-attachments/assets/be5824fd-0d40-49d9-845a-de36c5907adf)
+4. Matriks Korelasi<br>
+   Melakukan visualisasi pada fitur numerik untuk mengetahui korelasi antar fitur
+   ![Matriks Korelasi untuk Fitur Numerik](https://github.com/user-attachments/assets/172643ee-907c-48cd-b21f-c937eeae0eda)
+    Melihat fitur `Hour` dan `Day of Week` korelasinya lemah, maka kedua fitur tersebut akan didrop.
+
+# Data Preperation<br>
+Pada Data Preperation ini dilakukan persiapan data untuk dapat dimasukkan ke model, proses ini terdapat dua tahap yaitu:
+1. Encoding
+2. Splitting Data
+3. Scaling
+## Encoding
+Pada proses ini akan dilakukan perubahan pada fitur kategori diubah menjadi fitu numerik untuk memudahkan proses modeling.
+## Splitting Data
+Pada proses ini dilakukan pembagian data pada dataset. Rasio pembagian data ini adalah 90:10, 90 untuk data latih, dan 10 untuk data uji. pada tahapan ini juga pada data latih akan membuang fitur 
+# Modeling
+# Evaluation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Dikarenakan kriteria dari Dicoding untuk menggunakan data kuantitatif, di proyek ini akan menghapus beberapa fitur yang tidak digunakan dan hanya akan menggunakan fitur dengan tipe data numeric pada dataset tersebut, diantaranya:
