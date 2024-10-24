@@ -8,7 +8,7 @@ Pada tahun 2021, Chicago mengalami salah satu tahun paling mematikan dalam lebih
 
 Kekerasan bersenjata ini sebagian besar dipicu oleh konflik antar kelompok atau yang disebut dengan geng, yang telah menjadi masalah utama di kota ini. Sebagai kota terbesar ketiga di Negeri Paman Sam, Chicago mencatat lebih banyak pembunuhan daripada kota-kota besar lainnya, seperti New York dan Los Angeles, yang masing-masing mencatat setidaknya **300 pembunuhan lebih sedikit** pada tahun yang sama [^3][^4]. Lonjakan kekerasan tersebut menyoroti tantangan besar yang dihadapi oleh penegak hukum dalam menjaga keamanan umum, meskipun ada upaya untuk mengurangi senjata ilegal di jalanan dan meningkatkan jumlah petugas investigasi [^5][^6].
 
-Berdasarkan paparan latar belakang diatas, dapat dibuat model machine learning untuk memprediksi pola kejahatan yang ada di kota Chicago, dengan memanfaatkan data historis kriminal, seperti pembunuhan dan penembakan.
+Berdasarkan paparan latar belakang diatas, dapat dibuat model machine learning untuk memprediksi pola kejahatan yang ada di kota Chicago, dengan memanfaatkan data historis kriminal, seperti pembunuhan, penembakan dan lain-lain.
 
 Model yang telah dibuat ini diharapkan untuk dapat digunakan sebagai langkah antisipasi dalam pengamanan lebih ketat oleh pihak berwajib, seperti memperkuat patroli di area-area berisiko tinggi dan waktu-waktu tertentu yang rentan terhadap kejadian kekerasan.
 
@@ -27,32 +27,161 @@ Dari penjelasan latar belakang di atas, dapat dibuat rumusan masalah sebagai ber
 
 - Bagaimana menyiapkan data yang diperlukan untuk membuat model machine learning?
 - Bagaimana cara membuat model machine learning untuk kebutuhan klasifikasi jenis kejahatan?
+  
 ### Goals
-
 Berdasarkan rumusan masalah sebelumnya, dapat dibuatkan tujuan laporan sebagai berikut
-- Melakukan tahapan persiapan data, agar data yang sudah disiapkan dapat dimasukkan ke dalam model
-- Membuat model machine learning untuk mengklasifikasikan jenis kejahatan
+- Melakukan tahapan persiapan data, agar data yang sudah disiapkan dapat dimasukkan ke dalam model,
+- Membuat model machine learning untuk mengklasifikasikan jenis kejahatan.
+  
 ### Solution Statemnent
-
 Berdasarkan dari tujuan, didapatkan beberapa solusi untuk menjawab rumusan masalah sebagai berikut
-
 - Melakukan pembagian pada data menjadi data train data data test dengan rasio sebesar 80:20
+- Menargetkan Primary Type sebagai fitur yang diklasifikasikan
 - Menggunakan 3 algoritma yaitu blablabla. untuk membandingkan akurasi dari 3 algoritma yang diujikan
 
-    ### Solution statements
-    - Mengajukan 2 atau lebih solution statement. Misalnya, menggunakan dua atau lebih algoritma untuk mencapai solusi yang diinginkan atau melakukan improvement pada baseline model dengan hyperparameter tuning.
-    - Solusi yang diberikan harus dapat terukur dengan metrik evaluasi.
-
 ## Data Understanding
-Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
+Dataset yang digunakan untuk proyek ini adalah [Chicago Crime Dataset 2018 to 2021](https://www.kaggle.com/datasets/mingyuouyang/chicago-crime-dataset-2018-to-2021?select=Crimes_-_2018.csv) yang diambil dari laman Kaggle. Dataset tersebut memiliki 4 file dengan format csv berukuran 226.34 MB
 
-Dataset yang digunakan untuk proyek ini adalah "Chicago Crime Dataset 2018 to 2021" yang diambil dari laman Kaggle. Dataset tersebut memiliki 4 file dengan format csv berukuran 226.34 MB
+Dataset yang telah diunduh, masih perlu dilakukan penyesuaian sampai dataset dapat digunakan dengan baik, beberapa diantaranya:
+- Menggabungkan 4 berkas menjadi 1 berkas
+- Melakukan penghapusan pada kolom yang tidak digunakan dalam model, yaitu kolom 
+- Mengganti tipe data pada kolom Date menjadi "datetime64" dan melakukan ekstraksi kolom Date untuk mendapatkan hari (Day), dan Jam (Hour) untuk kebutuhan EDA.
+
+Setelah proses penyesuaian pada dataset, dilakukan EDA untuk melihat informasi apa saja yang didapatkan:
+### Deskripsi Variabel
+
+| #  | Column               | Non-Null Count | Dtype          |
+|----|----------------------|----------------|----------------|
+| 0  | Primary Type          | 948424         | object         |
+| 1  | Date                 | 948424         | datetime64[ns] |
+| 2  | Location Description  | 944105         | object         |
+| 3  | Arrest               | 948424         | bool           |
+| 4  | Domestic             | 948424         | bool           |
+| 5  | Beat                 | 948424         | int64          |
+| 6  | District             | 948424         | int64          |
+| 7  | Latitude             | 934039         | float64        |
+| 8  | Longitude            | 934039         | float64        |
+| 9  | Community Area       | 948423         | float64        |
+| 10 | Hour                 | 948424         | int32          |
+| 11 | Day of Week          | 948424         | int32          |
+
+Dari tabel diatas dapat dilihat bahwa didalam dataset berisi 948424 baris dari 11 kolom. Dari 11 kolom memiliki variasi tipe data yang bervariasi yaitu terdapat tipe data `bool` dua kolom, `datetime64` satu kolom, `float64` 3 kolom, `int32` dua kolom, `int64` dua kolom, `object` dua kolom. kolom berisi informasi yakni
+1. `Primary Type` berisi informasi jenis kejahatan yang terjadi di Chicago,
+2. `Date` berisi tanggal terjadinya kejahatan di Chicago,
+3. `Location Description` berisi informasi terkait tempat kejadian,
+4. `Arrest` berisi informasi apakah ada penangkapan pelaku kejadian,
+5. `Domestic` berisi tentang apakah kejahatan tersebut berkaitan dengan kekerasan rumah tangga,
+6. `Beat` berisi informasi yang menunjukkan wilayah patroli kepolisian tempat kejadian kejahatan itu terjadi,
+7. `Distric` berisi tentang distrik kepolisian di mana kejadian dilaporkan,
+8. `Latitude` berisi tentang informasi koordinasi lokasi berupa garis lintang,
+9. `Longitude` berisi tentang informasi koordinasi lokasi berupa garis bujur,
+10. `Community Area` berisi kode wilayah komunitas atau area geografis tempat kejahatan itu terjadi,
+11. `Hour` berisi informasi jam di mana kejadian dilaporkan terjadi, dalam format 24 jam (0-23),
+12. `Day of Week` berisi informasi hari dalam seminggu (0-6), di mana 0 adalah Ahad, 1 adalah Senin, dan seterusnya.
+
+### Deskripsi Statistik
+   
+|         | Date                       | Beat           | District       | Latitude       | Longitude      | Community Area | Hour           | Day of Week     |
+|---------|----------------------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|
+| count   | 948424                      | 948424.000000  | 948424.000000  | 934039.000000  | 934039.000000  | 948423.000000  | 948424.000000  | 948424.000000  |
+| mean    | 2019-11-19 18:37:12.548218  | 1143.738499    | 11.208713      | 41.842843      | -87.669994     | 36.872467      | 12.897611      | 3.012267       |
+| min     | 2018-01-01 00:00:00         | 111.000000     | 1.000000       | 36.619446      | -91.685656     | 1.000000       | 0.000000       | 0.000000       |
+| 25%     | 2018-11-16 18:09:45         | 611.000000     | 6.000000       | 41.767482      | -87.712670     | 23.000000      | 9.000000       | 1.000000       |
+| 50%     | 2019-10-10 16:33:30         | 1024.000000    | 10.000000      | 41.861559      | -87.663463     | 32.000000      | 14.000000      | 3.000000       |
+| 75%     | 2020-11-05 18:20:00         | 1722.000000    | 17.000000      | 41.904861      | -87.627609     | 54.000000      | 18.000000      | 5.000000       |
+| max     | 2021-12-31 23:59:00         | 2535.000000    | 31.000000      | 42.022671      | -87.524529     | 77.000000      | 23.000000      | 6.000000       |
+| std     | NaN                         | 696.565705     | 6.959525       | 0.086968       | 0.059382       | 21.507729      | 6.647212       | 1.999065       |
+
+### Penangan Missing Values dan Duplikasi
+1. Missing Values
+   
+| Column               | Missing Values |
+|----------------------|----------------|
+| Primary Type          | 0              |
+| Date                 | 0              |
+| Location Description  | 4319           |
+| Arrest               | 0              |
+| Domestic             | 0              |
+| Beat                 | 0              |
+| District             | 0              |
+| Latitude             | 14385          |
+| Longitude            | 14385          |
+| Community Area       | 1              |
+| Hour                 | 0              |
+| Day of Week          | 0              |
+
+Tabel diatas menunjukkan terdapat missing values pada kolom `Location Description`, `Latitude`, `Longitude` dan `Community Area`. Maka dari itu akan dilakukan penghapusan missing values.
+
+2. Duplikasi
+   
+Untuk melihat berapa baris yang terdapat kesamaan identik sekaligus dengan menghapusnya dan menampilkan kembali jumlah baris setelah dilakukan penghapusan duplikasi dengan menggunakan script berikut:
+```python
+# Melihat jumlah baris yang terduplikasi
+before = df.shape[0]
+print(f"Jumlah baris sebelum menghapus duplicates: {before}")
+
+# Menghapus baris yang terduplikasi secara identik
+df = df.drop_duplicates()
+
+# Menampilkan jumlah baris setelah menghapus duplikasi
+after = df.shape[0]
+print(f"Jumlah baris setelah menghapus duplicates: {after}")
+```
+Dari script diatas terdapat `930769` duplikasi identik, dan setelah penghapusan duplikasi menghasilkan total baris senilai `929122`
+
+### Penanganan Outliers
+
+Dari gambar diatas terdapat *outliers* pada `Longitude` dan `Latitude`, maka dari itu akan dilakukan penghapusan *outliers* dengan menggunakan metode IQR, dengan formula IQR sebagai berikut:
+
+   $IQR=Q_3-Q_1$
+   
+   Kemudian membuat batas bawah dan batas atas untuk mencakup *outliers* dengan menggunakan,
+   
+   $BatasBawah=Q_1-1.5*IQR$
+   
+   $BatasAtas=Q_3-1.5*IQR$
+
+Setelah dilakukan penghapusan *outliers*, dilakukan pengecekan kembali untuk melihat *outliers*, dan jumlah baris menurun menjadi `924193` baris.
+
+*Gambar*
+
+Gambar diatas menunjukkan terdapat masih terdapat *outliers*, tetapi outliers tersebut masih di batas aman.
+
+### Univariate Analysis
+Tahapan ini ditujukan unutk melihat informasi dari fitur numerik pada dataset, berikut informasi dalam bentuk histogram:
+
+
+dari hasil histogram diatas dapat diuraikan sebagai berikut
+1. `Date`: 
+   - Distribusi kejadian kriminalitas berdasarkan tanggal. Kejahatan cenderung merata sepanjang tahun, meskipun ada beberapa variasi pada periode tertentu. Ada penurunan aktivitas kejahatan pada pertengahan 2020 yang mungkin terkait dengan pembatasan aktivitas akibat pandemi COVID-19.
+
+2. `Beat`: 
+   - Kode patroli polisi (Beat) memiliki distribusi yang bervariasi, dengan beberapa beat memiliki jumlah kejadian yang jauh lebih banyak dibandingkan yang lain. Ini menunjukkan bahwa beberapa area patroli memiliki tingkat kejahatan yang lebih tinggi.
+
+3. `District`: 
+   - Distribusi kejadian kriminal berdasarkan distrik polisi. Beberapa distrik terlihat memiliki jumlah kejahatan yang jauh lebih tinggi dibandingkan distrik lainnya, menunjukkan variasi tingkat kejahatan berdasarkan lokasi.
+
+4. `Latitude`: 
+   - Distribusi kejadian kejahatan berdasarkan garis lintang. Terlihat bahwa ada konsentrasi kejahatan di beberapa rentang lintang tertentu, yang mungkin menunjukkan area geografis dengan tingkat kejahatan yang lebih tinggi.
+
+5. `Longitude`: 
+   - Distribusi kejadian kejahatan berdasarkan garis bujur. Pola distribusi ini menunjukkan konsentrasi kejadian kejahatan di wilayah geografis tertentu berdasarkan bujur.
+
+6. `Community Area`: 
+   - Distribusi kejadian berdasarkan kode area komunitas. Terlihat ada beberapa area komunitas yang memiliki kejadian kejahatan jauh lebih tinggi, yang mungkin mencerminkan area dengan tingkat aktivitas kejahatan yang lebih padat.
+
+7. `Hour`: 
+   - Distribusi kejadian kejahatan berdasarkan jam kejadian. Puncak kejadian kejahatan cenderung terjadi pada waktu sore hingga malam hari (sekitar jam 12 hingga 22), dengan beberapa penurunan aktivitas kejahatan selama jam-jam pagi.
+
+8. `Day of Week`: 
+   - Distribusi kejadian kejahatan berdasarkan hari dalam seminggu. Secara umum, tingkat kejahatan terlihat cukup merata sepanjang minggu, tanpa variasi signifikan antara hari-hari yang berbeda.
+
 
 Dikarenakan kriteria dari Dicoding untuk menggunakan data kuantitatif, di proyek ini akan menghapus beberapa fitur yang tidak digunakan dan hanya akan menggunakan fitur dengan tipe data numeric pada dataset tersebut, diantaranya:
-- Latitude
+- 
   Fitur ini berisi tentang informasi koordinasi lokasi berupa garis lintang
-- Longitude
-  Fitur ini berisi tentang informasi koordinasi lokasi berupa garis bujur
+- 
+  Fitur ini 
 - Hour
   Fitur ini berisi tentang informasi waktu kejadian, fitur ini bentuknya        dalam format jam (0-23)
 - Day of Week
