@@ -29,7 +29,7 @@ Dari penjelasan latar belakang di atas, dapat dibuat rumusan masalah sebagai ber
 ### Goals
 Berdasarkan rumusan masalah sebelumnya, dapat dibuatkan tujuan laporan sebagai berikut
 - Melakukan tahapan persiapan data, agar data yang sudah disiapkan dapat dimasukkan ke dalam model,
-- Membuat model machine learning untuk mengklasifikasikan wilayah kejahatan dengan tiga tingkatan yaitu, Sering Terjadi, Jarang Terjadi, dan Sangat Jarang Terjadi.
+- Membuat model machine learning untuk mengklasifikasikan area kejahatan dengan tiga tingkatan yaitu, Sering Terjadi, Jarang Terjadi, dan Sangat Jarang Terjadi.
   
 ### Solution Statemnent
 Berdasarkan dari tujuan, didapatkan beberapa solusi untuk menjawab rumusan masalah sebagai berikut
