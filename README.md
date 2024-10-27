@@ -36,6 +36,27 @@ Berdasarkan dari tujuan, didapatkan beberapa solusi untuk menjawab rumusan masal
 - Melakukan pembagian pada data menjadi data train data data test dengan rasio sebesar 70:30,
 - Menargetkan `Location Description` sebagai fitur yang diklasifikasikan,
 - Menggunakan dua algoritma model yaitu Naive Bayes dan K-Nearest Neighbor untuk membandingkan akurasi dari dua algoritma yang diujikan.
+  
+## *Library* Untuk Proyek
+```python
+# Library dasar untuk manipulasi data dan visualisasi
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Library untuk preprocessing
+from sklearn.preprocessing import LabelEncoder, MinMaxScaler
+
+# Library untuk pembagian data
+from sklearn.model_selection import train_test_split
+
+# Library untuk algoritma machine learning
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+
+# Library untuk evaluasi model
+from sklearn.metrics import accuracy_score, confusion_matrix
+```
 
 ## Data Understanding
 Dataset yang digunakan untuk proyek ini adalah [Chicago Crime Dataset 2018 to 2021](https://www.kaggle.com/datasets/mingyuouyang/chicago-crime-dataset-2018-to-2021?select=Crimes_-_2018.csv) yang diambil dari laman Kaggle. Dataset tersebut memiliki 4 file dengan format csv berukuran 226.34 MB
