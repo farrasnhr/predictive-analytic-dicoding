@@ -35,7 +35,7 @@ Berdasarkan rumusan masalah sebelumnya, dapat dibuatkan tujuan laporan sebagai b
 Berdasarkan dari tujuan, didapatkan beberapa solusi untuk menjawab rumusan masalah sebagai berikut
 - Melakukan pembagian pada data menjadi data train data data test dengan rasio sebesar 70:30,
 - Menargetkan `Location Description` sebagai fitur yang diklasifikasikan,
-- Menggunakan dua algoritma model yaitu Naive Bayes dan K-Nearest Neighbor untuk membandingkan akurasi dari dua algoritma yang diujikan.
+- Menggunakan dua algoritma model yaitu Naïve Bayes dan K-Nearest Neighbor untuk membandingkan akurasi dari dua algoritma yang diujikan.
   
 ## *Library* Untuk Proyek
 Menyiapkan beberapa *library* guna menunjang pengerjaan proyek. Berikut *library* yang akan digunakan pada proyek ini:
@@ -235,6 +235,7 @@ Pada Data Preperation ini dilakukan persiapan data untuk dapat dimasukkan ke mod
 1. Encoding
 2. Splitting Data
 3. Scaling
+   
 ## Encoding
 Pada proses ini akan dilakukan perubahan pada fitur kategori seperti `Primary Type`, dan `Location Description` diubah menjadi fitur numerik, fitur lain seperti `Arrest` dan `Domestic` dari kategori `boolean` berupa teks True / False akan diubah menjadi numerik (0 atau 1). Proses Encoding ini menggunakan LabelEncoder dari *library* SKLearn.
 ```python
@@ -299,7 +300,7 @@ knn_model.fit(X_train_scaled, y_train)
 [^7]: [B. Purnama, S, Si., MT, Pengantar Machine Learning. Bandung: Informatika, 2019.]()
 [^8]: [J. Suntoro, Data Mining: Algoritma dan Implementasi dengan Pemrograman PHP. Jakarta: Elex Media Komputindo, 2019.]()
 
-## Naive Bayes
+## Naïve Bayes
 Naïve Bayes merupakan teknik klasifikasi yang mengandalkan Teorema Bayes. Metodologi kategorisasi ini menggunakan teknik probabilitas dan statistik yang awalnya diusulkan oleh seorang ilmuwan Inggris bernama Thomas Bayes. Naïve Bayes adalah metode klasifikasi yang menggunakan konsep probabilitas untuk membangun model prediksi klasifikasi. Dengan memanfaatkan data historis, model dapat menghasilkan perkiraan kejadian di masa depan. Pendekatan ini menghitung kemungkinan terjadinya suatu kejadian, dan dapat diubah jika tersedia lebih banyak data yang menguatkan[^9][^10].<br>
 Pada algoritma Naive Bayes, model ini akan menggunakan parameter `nb_model = GaussianNB`.
 
@@ -323,7 +324,7 @@ sedangkan data aktual adalah nilai sebenarnya yang dimiliki[^11].
 | **Aktual Positif** | True Positive (TP) | False Negative (FN) |
 | **Aktual Negatif** | False Positive (FP) | True Negative (TN) |
 
-Dari tabel diatas merupakan gambaran dari *Confusion Matrix*, di mana TP adalah nilai prediksi benar sesuai dengan nilai aktual benar, FP adalah nilai prediksi benar sesuai dengan nilai aktual salah, FN adalah nilai prediksi salah sesuai dengan nilai aktual benar, FP adalah nilai prediksi salah sesuai dengan nilai aktual salah. Dari gambaran *Confusion Matrix* dapat dilakukan pengukuran performa model yaitu akurasi[31]. Akurasi dapat digambarkan seberapa akurat machine learning dapat memprediksi nilai[^11]. 
+Dari tabel diatas merupakan gambaran dari *Confusion Matrix*, di mana TP adalah nilai prediksi benar sesuai dengan nilai aktual benar, FP adalah nilai prediksi benar sesuai dengan nilai aktual salah, FN adalah nilai prediksi salah sesuai dengan nilai aktual benar, FP adalah nilai prediksi salah sesuai dengan nilai aktual salah. Dari gambaran *Confusion Matrix* dapat dilakukan pengukuran performa model yaitu akurasi. Akurasi dapat digambarkan seberapa akurat machine learning dapat memprediksi nilai[^11]. 
 
 $$Akurasi = \frac{TP + TN}{TP + TN + FP + FN}\$$<br>
 di mana:
