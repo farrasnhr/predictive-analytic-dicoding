@@ -38,6 +38,7 @@ Berdasarkan dari tujuan, didapatkan beberapa solusi untuk menjawab rumusan masal
 - Menggunakan dua algoritma model yaitu Naive Bayes dan K-Nearest Neighbor untuk membandingkan akurasi dari dua algoritma yang diujikan.
   
 ## *Library* Untuk Proyek
+Menyiapkan beberapa *library* guna menunjang pengerjaan proyek. Berikut *library* yang akan digunakan pada proyek ini:
 ```python
 # Library dasar untuk manipulasi data dan visualisasi
 import pandas as pd
