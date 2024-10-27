@@ -10,7 +10,7 @@ Kekerasan bersenjata ini sebagian besar dipicu oleh konflik antar kelompok atau 
 
 Berdasarkan paparan latar belakang diatas, dapat dibuat model machine learning untuk memprediksi wilayah dengan sering terjadinya kejahatan yang ada di kota Chicago, dengan memanfaatkan data historis kriminal, seperti kejadian kriminal, lokasi kejadian dan lain-lain.
 
-Model yang telah dibuat ini diharapkan untuk dapat digunakan sebagai langkah antisipasi dalam pengamanan lebih ketat oleh pihak berwajib, seperti memperkuat patroli di area-area berisiko tinggi dan rentan terhadap kejadian kekerasan.
+Model yang telah dibuat ini diharapkan untuk dapat digunakan sebagai langkah antisipasi dalam pengamanan lebih ketat oleh pihak berwajib, seperti memperkuat patroli di area-area berisiko tinggi dan rentan terhadap kejadian kejahatan.
 
 [^1]: [WTTW News - 2021 Ends as Chicago’s Deadliest Year](https://news.wttw.com/2022/01/02/2021-ends-chicago-s-deadliest-year-quarter-century)
 [^2]: [Chicago CRED 2021 Annual Report](https://www.chicagocred.org/blog/2021-annual-report/)
@@ -180,28 +180,21 @@ Tahapan ini ditujukan unutk melihat informasi dari fitur numerik pada dataset, b
 
 Dari hasil histogram diatas dapat diuraikan sebagai berikut:
 1. `Date`: 
-   - Distribusi kejadian kriminalitas berdasarkan tanggal. Kejahatan cenderung merata sepanjang tahun, meskipun ada beberapa variasi pada periode tertentu. Ada penurunan aktivitas kejahatan pada pertengahan 2020 yang mungkin terkait dengan pembatasan aktivitas akibat pandemi COVID-19.
-
+   - Distribusi kejadian kriminalitas berdasarkan tanggal. Kejahatan cenderung merata sepanjang tahun, meskipun ada beberapa variasi pada periode tertentu. Ada penurunan aktivitas kejahatan pada pertengahan 2020 yang mungkin terkait dengan pembatasan aktivitas akibat pandemi COVID-19.<br>
 2. `Beat`: 
-   - Kode patroli polisi (Beat) memiliki distribusi yang bervariasi, dengan beberapa beat memiliki jumlah kejadian yang jauh lebih banyak dibandingkan yang lain. Ini menunjukkan bahwa beberapa area patroli memiliki tingkat kejahatan yang lebih tinggi.
-
+   - Kode patroli polisi (Beat) memiliki distribusi yang bervariasi, dengan beberapa beat memiliki jumlah kejadian yang jauh lebih banyak dibandingkan yang lain. Ini menunjukkan bahwa beberapa area patroli memiliki tingkat kejahatan yang lebih tinggi.<br>
 3. `District`: 
-   - Distribusi kejadian kriminal berdasarkan distrik polisi. Beberapa distrik terlihat memiliki jumlah kejahatan yang jauh lebih tinggi dibandingkan distrik lainnya, menunjukkan variasi tingkat kejahatan berdasarkan lokasi.
-
+   - Distribusi kejadian kriminal berdasarkan distrik polisi. Beberapa distrik terlihat memiliki jumlah kejahatan yang jauh lebih tinggi dibandingkan distrik lainnya, menunjukkan variasi tingkat kejahatan berdasarkan lokasi.<br>
 4. `Latitude`: 
-   - Distribusi kejadian kejahatan berdasarkan garis lintang. Terlihat bahwa ada konsentrasi kejahatan di beberapa rentang lintang tertentu, yang mungkin menunjukkan area geografis dengan tingkat kejahatan yang lebih tinggi.
-
+   - Distribusi kejadian kejahatan berdasarkan garis lintang. Terlihat bahwa ada konsentrasi kejahatan di beberapa rentang lintang tertentu, yang mungkin menunjukkan area geografis dengan tingkat kejahatan yang lebih tinggi.<br>
 5. `Longitude`: 
-   - Distribusi kejadian kejahatan berdasarkan garis bujur. Pola distribusi ini menunjukkan konsentrasi kejadian kejahatan di wilayah geografis tertentu berdasarkan bujur.
-
+   - Distribusi kejadian kejahatan berdasarkan garis bujur. Pola distribusi ini menunjukkan konsentrasi kejadian kejahatan di wilayah geografis tertentu berdasarkan bujur.<br>
 6. `Community Area`: 
-   - Distribusi kejadian berdasarkan kode area komunitas. Terlihat ada beberapa area komunitas yang memiliki kejadian kejahatan jauh lebih tinggi, yang mungkin mencerminkan area dengan tingkat aktivitas kejahatan yang lebih padat.
-
+   - Distribusi kejadian berdasarkan kode area komunitas. Terlihat ada beberapa area komunitas yang memiliki kejadian kejahatan jauh lebih tinggi, yang mungkin mencerminkan area dengan tingkat aktivitas kejahatan yang lebih padat.<br>
 7. `Hour`: 
-   - Distribusi kejadian kejahatan berdasarkan jam kejadian. Puncak kejadian kejahatan cenderung terjadi pada waktu sore hingga malam hari (sekitar jam 12 hingga 22), dengan beberapa penurunan aktivitas kejahatan selama jam-jam pagi.
-
+   - Distribusi kejadian kejahatan berdasarkan jam kejadian. Puncak kejadian kejahatan cenderung terjadi pada waktu sore hingga malam hari (sekitar jam 12 hingga 22), dengan beberapa penurunan aktivitas kejahatan selama jam-jam pagi.<br>
 8. `Day of Week`: 
-   - Distribusi kejadian kejahatan berdasarkan hari dalam seminggu. Secara umum, tingkat kejahatan terlihat cukup merata sepanjang minggu.
+   - Distribusi kejadian kejahatan berdasarkan hari dalam seminggu. Secara umum, tingkat kejahatan terlihat cukup merata sepanjang minggu.<br>
 
 ### Multivariate Analysis
 
