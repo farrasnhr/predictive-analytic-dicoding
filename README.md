@@ -8,9 +8,9 @@ Pada tahun 2021, Chicago mengalami salah satu tahun paling mematikan dalam lebih
 
 Kekerasan bersenjata ini sebagian besar dipicu oleh konflik antar kelompok atau yang disebut dengan geng, yang telah menjadi masalah utama di kota ini. Sebagai kota terbesar ketiga di Negeri Paman Sam, Chicago mencatat lebih banyak pembunuhan daripada kota-kota besar lainnya, seperti New York dan Los Angeles, yang masing-masing mencatat setidaknya **300 pembunuhan lebih sedikit** pada tahun yang sama [^3][^4]. Lonjakan kekerasan tersebut menyoroti tantangan besar yang dihadapi oleh penegak hukum dalam menjaga keamanan umum, meskipun ada upaya untuk mengurangi senjata ilegal di jalanan dan meningkatkan jumlah petugas investigasi [^5][^6].
 
-Berdasarkan paparan latar belakang diatas, dapat dibuat model machine learning untuk memprediksi pola kejahatan yang ada di kota Chicago, dengan memanfaatkan data historis kriminal, seperti pembunuhan, penembakan dan lain-lain.
+Berdasarkan paparan latar belakang diatas, dapat dibuat model machine learning untuk memprediksi wilayah dengan sering terjadinya kejahatan yang ada di kota Chicago, dengan memanfaatkan data historis kriminal, seperti kejadian kriminal, lokasi kejadian dan lain-lain.
 
-Model yang telah dibuat ini diharapkan untuk dapat digunakan sebagai langkah antisipasi dalam pengamanan lebih ketat oleh pihak berwajib, seperti memperkuat patroli di area-area berisiko tinggi dan waktu-waktu tertentu yang rentan terhadap kejadian kekerasan.
+Model yang telah dibuat ini diharapkan untuk dapat digunakan sebagai langkah antisipasi dalam pengamanan lebih ketat oleh pihak berwajib, seperti memperkuat patroli di area-area berisiko tinggi dan rentan terhadap kejadian kekerasan.
 
 [^1]: [WTTW News - 2021 Ends as Chicago’s Deadliest Year](https://news.wttw.com/2022/01/02/2021-ends-chicago-s-deadliest-year-quarter-century)
 [^2]: [Chicago CRED 2021 Annual Report](https://www.chicagocred.org/blog/2021-annual-report/)
@@ -20,24 +20,22 @@ Model yang telah dibuat ini diharapkan untuk dapat digunakan sebagai langkah ant
 [^6]: [Chicago Police Department Report](https://home.chicagopolice.org/statistics-data/crime-statistics/)
 
 ## Business Understanding
-
-Dari penjelasan latar belakang di atas, dapat dibuat rumusan masalah sebagai berikut
+Dari penjelasan latar belakang di atas, dapat dibuat rumusan masalah sebagai berikut:
 
 ### Problem Statements
-
 - Bagaimana menyiapkan data yang diperlukan untuk membuat model machine learning?
 - Bagaimana cara membuat model machine learning untuk kebutuhan klasifikasi jenis kejahatan?
   
 ### Goals
 Berdasarkan rumusan masalah sebelumnya, dapat dibuatkan tujuan laporan sebagai berikut
 - Melakukan tahapan persiapan data, agar data yang sudah disiapkan dapat dimasukkan ke dalam model,
-- Membuat model machine learning untuk mengklasifikasikan jenis kejahatan.
+- Membuat model machine learning untuk mengklasifikasikan wilayah kejahatan dengan tiga tingkatan yaitu, Sering Terjadi, Jarang Terjadi, dan Sangat Jarang Terjadi.
   
 ### Solution Statemnent
 Berdasarkan dari tujuan, didapatkan beberapa solusi untuk menjawab rumusan masalah sebagai berikut
-- Melakukan pembagian pada data menjadi data train data data test dengan rasio sebesar 80:20
-- Menargetkan Primary Type sebagai fitur yang diklasifikasikan
-- Menggunakan 3 algoritma yaitu blablabla. untuk membandingkan akurasi dari 3 algoritma yang diujikan
+- Melakukan pembagian pada data menjadi data train data data test dengan rasio sebesar 70:30,
+- Menargetkan `Location Description` sebagai fitur yang diklasifikasikan,
+- Menggunakan dua algoritma model yaitu Naive Bayes dan K-Nearest Neighbor untuk membandingkan akurasi dari dua algoritma yang diujikan.
 
 ## Data Understanding
 Dataset yang digunakan untuk proyek ini adalah [Chicago Crime Dataset 2018 to 2021](https://www.kaggle.com/datasets/mingyuouyang/chicago-crime-dataset-2018-to-2021?select=Crimes_-_2018.csv) yang diambil dari laman Kaggle. Dataset tersebut memiliki 4 file dengan format csv berukuran 226.34 MB
@@ -181,7 +179,7 @@ Dari hasil histogram diatas dapat diuraikan sebagai berikut:
    - Distribusi kejadian kejahatan berdasarkan jam kejadian. Puncak kejadian kejahatan cenderung terjadi pada waktu sore hingga malam hari (sekitar jam 12 hingga 22), dengan beberapa penurunan aktivitas kejahatan selama jam-jam pagi.
 
 8. `Day of Week`: 
-   - Distribusi kejadian kejahatan berdasarkan hari dalam seminggu. Secara umum, tingkat kejahatan terlihat cukup merata sepanjang minggu, tanpa variasi signifikan antara hari-hari yang berbeda.
+   - Distribusi kejadian kejahatan berdasarkan hari dalam seminggu. Secara umum, tingkat kejahatan terlihat cukup merata sepanjang minggu.
 
 ### Multivariate Analysis
 
@@ -208,88 +206,184 @@ Pada Multivariate Analysis akan menunjukkan informasi berupa 1 variabel berkaita
 4. Matriks Korelasi<br>
    Melakukan visualisasi pada fitur numerik untuk mengetahui korelasi antar fitur
    ![Matriks Korelasi untuk Fitur Numerik](https://github.com/user-attachments/assets/172643ee-907c-48cd-b21f-c937eeae0eda)
-    Melihat fitur `Hour` dan `Day of Week` korelasinya lemah, maka kedua fitur tersebut akan didrop.
+    Melihat fitur `Hour` dan `Day of Week` korelasi kedua fitur tersebut  lemah dan juga fitur `Date` hanya digunakan untuk proses EDA, maka ketiga fitur tersebut akan didrop.
 
 # Data Preperation<br>
-Pada Data Preperation ini dilakukan persiapan data untuk dapat dimasukkan ke model, proses ini terdapat dua tahap yaitu:
+Pada Data Preperation ini dilakukan persiapan data untuk dapat dimasukkan ke model, proses ini terdapat tiga tahap yaitu:
 1. Encoding
 2. Splitting Data
 3. Scaling
 ## Encoding
-Pada proses ini akan dilakukan perubahan pada fitur kategori diubah menjadi fitu numerik untuk memudahkan proses modeling.
+Pada proses ini akan dilakukan perubahan pada fitur kategori seperti `Primary Type`, dan `Location Description` diubah menjadi fitur numerik, fitur lain seperti `Arrest` dan `Domestic` dari kategori `boolean` berupa teks True / False akan diubah menjadi numerik (0 atau 1). Proses Encoding ini menggunakan LabelEncoder dari *library* SKLearn.
+```python
+# Menggunakan LabelEncoder untuk fitur 'Primary Type'
+df_encoded['Primary Type'] = le.fit_transform(df['Primary Type'])
+df_encoded['Location Description'] = le.fit_transform(df['Location Description'])
+
+# Mengubah kolom boolean menjadi 0 atau 1
+df_encoded['Arrest'] = df_encoded['Arrest'].astype(int)
+df_encoded['Domestic'] = df_encoded['Domestic'].astype(int)
+```
+
 ## Splitting Data
-Pada proses ini dilakukan pembagian data pada dataset. Rasio pembagian data ini adalah 90:10, 90 untuk data latih, dan 10 untuk data uji. pada tahapan ini juga pada data latih akan membuang fitur 
+Sebelum data di bagi, dilakukan pemisahan fitur dan target dari dataset. Semua kolom kecuali `Community Area` dipilih sebagai fitur, sementara kolom `Community Area` dijadikan target yang ingin diprediksi atau klasifikasi. setelah pemisahan fitur dan target, dilakukan pembagian data pada dataset. Rasio pembagian data ini adalah 70:30, 70% untuk data latih, dan 30% untuk data uji. Pada tahapan ini akan memisahkan fitur dan target dalam dataset.
+
+```python
+# Memisahkan fitur dan target
+X = df_encoded.drop(columns=['Community Area'])  # Semua kolom kecuali 'Community Area' sebagai fitur
+y = df_encoded['Community Area']  # Kolom 'Community Area' sebagai target
+
+# Membagi data menjadi 70% untuk training dan 30% untuk testing
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+```
+## Scaling
+
+Setelah data dibagi, langkah selanjutnya adalah melakukan proses scaling pada fitur-fitur dalam data yang telah dibagi. Scaling ini bertujuan untuk menyelaraskan rentang nilai setiap fitur, sehingga tidak ada fitur yang mendominasi atau mempengaruhi model secara berlebihan. Dengan menggunakan metode MinMax Scaling dari *library* SKLearn, setiap nilai fitur akan dipetakan dalam rentang 0 hingga 1. Scaling dilakukan pada data latih dan data uji.
+
+```python
+# Inisialisasi MinMaxScaler
+scaler = MinMaxScaler()
+
+# Melakukan scaling pada data latih
+X_train_scaled = scaler.fit_transform(X_train)
+
+# Melakukan scaling pada data uji
+X_test_scaled = scaler.transform(X_test)
+```
+
 # Modeling
+
+Pada tahapan ini setelah data dibagi dan di*scaling*, dilakukan pembangunan model, model yang dipilih ialah KNN (K-Nearest Neighbor) dan AdaBoost untuk dibandingkan performanya, setiap model akan dilatih menggunakan data latih dan setelah model dibangun akan dilakukan pengujian dengan data uji untuk melihat performa kemampuan model dalam klasifikasi.
+
+## K-Nearest Neighbor (KNN)
+K-Nearest Neighbor mengklasifikasikan objek berdasarkan “kedekatan” objek tersebut dengan “mayoritas” tetangganya, K-NN pada umumnya berjalan dengan baik untuk diimplementasikan pada dataset yang berukuran sangat besar. K-Nearest Neighbors (KNN) sederhana dan mudah diimplementasikan, serta tidak memerlukan proses pelatihan. KNN bekerja baik pada data teratur, tetapi komputasinya mahal pada dataset besar karena menghitung jarak untuk setiap titik. Selain itu, KNN sensitif terhadap perbedaan skala dan outliers serta rentan terhadap dimensi tinggi [^7][^8]. Berikut perhitungan algoritma KNN:
+1. Menetapkan nilai k.
+2. Melakukan perhitungan jarak antara data uji dengan data latih dengan menggunakan rumus *Euclidean Distance*.
+   
+$$d(x, y) = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}$$
+
+4. Mengurutkan data latih dengan jarak terkecil.
+5. Menetapkan kelas, di mana kelas yang ditentukan merupakan kelas dengan jumlah nilai pada k terbanyak pada data uji.<br>
+
+Pada pembangunan model KNN, parameter yang digunakan yaitu `n_neighbors = 5` dan `distance metric = Euclidean`.
+```python
+# Inisialisasi model KNN dengan `n_neighbors` dan `metric`.
+knn_model = KNeighborsClassifier(n_neighbors=5, metric='euclidean')
+```
+Setelah inisialisasi model, model akan dilatih dengan data latih.
+```python
+knn_model.fit(X_train_scaled, y_train)
+```
+[^7]: [B. Purnama, S, Si., MT, Pengantar Machine Learning. Bandung: Informatika, 2019.]()
+[^8]: [J. Suntoro, Data Mining: Algoritma dan Implementasi dengan Pemrograman PHP. Jakarta: Elex Media Komputindo, 2019.]()
+
+## Naive Bayes
+Naïve Bayes merupakan teknik klasifikasi yang mengandalkan Teorema Bayes. Metodologi kategorisasi ini menggunakan teknik probabilitas dan statistik yang awalnya diusulkan oleh seorang ilmuwan Inggris bernama Thomas Bayes. Naïve Bayes adalah metode klasifikasi yang menggunakan konsep probabilitas untuk membangun model prediksi klasifikasi. Dengan memanfaatkan data historis, model dapat menghasilkan perkiraan kejadian di masa depan. Pendekatan ini menghitung kemungkinan terjadinya suatu kejadian, dan dapat diubah jika tersedia lebih banyak data yang menguatkan[^9][^10].<br>
+Pada algoritma Naive Bayes, model ini akan menggunakan parameter `nb_model = GaussianNB`.
+
+```python
+# Inisialisasi model Naive Bayes dengan parameter nb_model.
+nb_model = GaussianNB()
+
+# Melatih model pada data training
+nb_model.fit(X_train_scaled, y_train)
+```
+[^9]: [D. M. S. Kurniawan, Pengenalan Machine Learning dengan Python. Elex Media Komputindo, 2022.]()
+[^10]: [C. Davidson and Pilon, Bayesian Methods for Hackers. Boston: Addison 56 Wesley, 2015.]()
+
 # Evaluation
+Setelah model dilatih dengan data latih, dilakukan evaluasi menggunakan data uji guna melihat performa model dalam klasifikasi data uji. Evaluasi pada proyek ini menggunakan *Confusion Matrix* sebagai gambaran dari model memprediksi data uji. *Confusion Matrix* ini membandingkan data target prediksi 
+dengan data target aktual. Nilai prediksi adalah hasil pemodelan machine learning, 
+sedangkan data aktual adalah nilai sebenarnya yang dimiliki[^11].
+
+|               | Prediksi Positif | Prediksi Negatif |
+|---------------|------------------|------------------|
+| **Aktual Positif** | True Positive (TP) | False Negative (FN) |
+| **Aktual Negatif** | False Positive (FP) | True Negative (TN) |
+
+Dari tabel diatas merupakan gambaran dari *Confusion Matrix*, di mana TP adalah nilai prediksi benar sesuai dengan nilai aktual benar, FP adalah nilai prediksi benar sesuai dengan nilai aktual salah, FN adalah nilai prediksi salah sesuai dengan nilai aktual benar, FP adalah nilai prediksi salah sesuai dengan nilai aktual salah. Dari gambaran *Confusion Matrix* dapat dilakukan pengukuran performa model yaitu akurasi[31]. Akurasi dapat digambarkan seberapa akurat machine learning dapat memprediksi nilai[^11]. 
+
+$$Akurasi = \frac{TP + TN}{TP + TN + FP + FN}\$$<br>
+di mana:
+- **TP** = True Positive (prediksi benar untuk kelas positif)
+- **TN** = True Negative (prediksi benar untuk kelas negatif)
+- **FP** = False Positive (prediksi salah untuk kelas positif)
+- **FN** = False Negative (prediksi salah untuk kelas negatif)
+
+Dari pengukuran performa model sebelumnya dapat diuraikan untuk performa model yang telah dilatih:
+
+```python
+# Prediksi dan akurasi untuk Naive Bayes
+nb_train_pred = nb_model.predict(X_train_scaled)
+nb_test_pred = nb_model.predict(X_test_scaled)
+nb_train_accuracy = accuracy_score(y_train, nb_train_pred)
+nb_test_accuracy = accuracy_score(y_test, nb_test_pred)
+
+# Prediksi dan akurasi untuk KNN
+knn_train_pred = knn_model.predict(X_train_scaled)
+knn_test_pred = knn_model.predict(X_test_scaled)
+knn_train_accuracy = accuracy_score(y_train, knn_train_pred)
+knn_test_accuracy = accuracy_score(y_test, knn_test_pred)
+```
+
+### Confusion Matrix Naive Bayes - Data Latih
+
+|           | Predicted 0 | Predicted 1 | Predicted 2 |
+|-----------|-------------|-------------|-------------|
+| **Actual 0** | 25319       | 123844      | 44          |
+| **Actual 1** | 9225        | 43363       | 903         |
+| **Actual 2** | 1042        | 43804       | 4665        |
+
+### Confusion Matrix Naive Bayes - Data Uji
+
+|           | Predicted 0 | Predicted 1 | Predicted 2 |
+|-----------|-------------|-------------|-------------|
+| **Actual 0** | 11000       | 55206       | 0           |
+| **Actual 1** | 3933        | 185481      | 360         |
+| **Actual 2** | 481         | 18881       | 1996        |
+
+### Confusion Matrix KNN - Data Latih
+
+|           | Predicted 0 | Predicted 1 | Predicted 2 |
+|-----------|-------------|-------------|-------------|
+| **Actual 0** | 151481      | 2084        | 98          |
+| **Actual 1** | 2461        | 440008      | 1292        |
+| **Actual 2** | 163         | 2621        | 46727       |
+
+### Confusion Matrix KNN - Data Uji
+
+|           | Predicted 0 | Predicted 1 | Predicted 2 |
+|-----------|-------------|-------------|-------------|
+| **Actual 0** | 64630       | 1484        | 92          |
+| **Actual 1** | 1774        | 186885      | 1035        |
+| **Actual 2** | 121         | 1771        | 19466       |
+
+Dari hasil tersebut dapat menggunakan formula untuk mendapatkan nilai akurasi.
+
+```python
+# Membuat DataFrame dengan akurasi model
+model_accuracies = {
+    'Model': ['Naive Bayes', 'KNN'],
+    'Data Latih': [nb_train_accuracy, nb_test_accuracy],
+    'Data Uji': [knn_train_accuracy, knn_test_accuracy]
+}
+```
+
+| Model        | Data Latih | Data Uji |
+|--------------|------------|----------|
+| Naive Bayes  | 0.716636   | 0.986523 |
+| KNN          | 0.715568   | 0.977360 |
+
+Dan dapat divisualisasikan sebagai berikut:
+
+![akurasi](https://github.com/user-attachments/assets/edbf92f8-8f51-45cf-a46e-c47e1fba5690)<br>
+
+Dari hasil perhitungan akurasi model, terlihat bahwa model Naive Bayes dan KNN menunjukkan performa yang berbeda pada data latih dan data uji. Model Naive Bayes memiliki akurasi sebesar 0.7166 pada data latih dan 0.9865 pada data uji. Sementara itu, model KNN menunjukkan akurasi 0.7156 pada data latih dan 0.9774 pada data uji.
+
+Model Naive Bayes dan KNN sama-sama menunjukkan akurasi tinggi pada data uji, yang mengindikasikan bahwa keduanya berhasil menangkap pola-pola penting dalam data, meskipun terdapat sedikit perbedaan pada akurasi data latih. Akurasi yang tinggi pada data uji ini menunjukkan bahwa model mampu membedakan area dengan kategori yang berbeda misalnya, area dengan kategori "Jarang Terjadi," "Sering Terjadi," dan "Sangat Jarang Terjadi" – dengan baik, berdasarkan pola kejadian di area tersebut.
+
+Dengan hasil ini dapat menyimpulkan bahwa baik Naive Bayes maupun KNN adalah model yang cocok untuk membantu prediksi area dengan tingkat kejadian tertentu dalam area yang diklasifikasikan.
 
 
+[^11]: [I. Saputra and D. A. Kristiyanti, Machine Learning Untuk Pemula. Bandung: Informatika, 2022.]()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Dikarenakan kriteria dari Dicoding untuk menggunakan data kuantitatif, di proyek ini akan menghapus beberapa fitur yang tidak digunakan dan hanya akan menggunakan fitur dengan tipe data numeric pada dataset tersebut, diantaranya:
-- 
-  Fitur ini berisi tentang informasi koordinasi lokasi berupa garis lintang
-- 
-  Fitur ini 
-- Hour
-  Fitur ini berisi tentang informasi waktu kejadian, fitur ini bentuknya        dalam format jam (0-23)
-- Day of Week
-  Fitur ini berisi tentang hari kejadian dalam seminggu, dimulai dari 0 yaitu hari Senin dan berakhir di angka 6 yaitu Ahad
-
-Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
-
-### Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-- accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-- cuisine : merupakan jenis masakan yang disajikan pada restoran.
-- dst
-
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data atau exploratory data analysis.
-
-## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
-
-## Modeling
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
-
-## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
-
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
-
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
-
-**---Ini adalah bagian akhir laporan---**
-
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
