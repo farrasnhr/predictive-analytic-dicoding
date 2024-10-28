@@ -319,7 +319,7 @@ sedangkan data aktual adalah nilai sebenarnya yang dimiliki[^11].
 
 Dari tabel diatas merupakan gambaran dari *Confusion Matrix*, di mana TP adalah nilai prediksi benar sesuai dengan nilai aktual benar, FP adalah nilai prediksi benar sesuai dengan nilai aktual salah, FN adalah nilai prediksi salah sesuai dengan nilai aktual benar, FP adalah nilai prediksi salah sesuai dengan nilai aktual salah. Dari gambaran *Confusion Matrix* dapat dilakukan pengukuran performa model yaitu akurasi. Akurasi dapat digambarkan seberapa akurat machine learning dapat memprediksi nilai[^11]. 
 
-$$Akurasi = \frac{TP + TN}{TP + TN + FP + FN}\$$<br>
+$Akurasi = \frac{TP + TN}{TP + TN + FP + FN}\$<br>
 di mana:
 - **TP** = True Positive (prediksi benar untuk kelas positif)
 - **TN** = True Negative (prediksi benar untuk kelas negatif)
