@@ -296,13 +296,37 @@ Analisis multivariate adalah teknik analisis data yang melibatkan beberapa varia
 
 # Data Preperation<br>
 Pada Data Preperation ini dilakukan persiapan data untuk dapat dimasukkan ke model, proses ini terdapat tiga tahap yaitu:
-1. Menangani *Missing Values*
-2. Menghapus Duplikasi
-3. Menghapus *Outliers*
-4. *Drop* Tabel
-5. Perubahan Fitur  
-6. Splitting Data
-7. Scaling
+1. Menggabungkan Dataset
+2. Menangani *Missing Values*
+3. Menghapus Duplikasi
+4. Menghapus *Outliers*
+5. *Drop* Tabel
+6. Perubahan Fitur  
+7. Splitting Data
+8. Scaling
+
+## Menggabungkan Dataset
+Dataset yang telah diundah dari laman Kaggle masih terpisah, maka dari itu dilakukan penggabungan dataset dari empat berkas yang terpisah digabung menjadi satu berkas csv.
+```python
+# Path ke folder tempat file diekstrak
+folder_path = 'crime'
+
+# Buat list untuk menyimpan setiap DataFrame
+dfs = []
+
+# Loop melalui file CSV di folder dan gabungkan
+for file in os.listdir(folder_path):
+    if file.endswith('.csv'):
+        file_path = os.path.join(folder_path, file)
+        # Membaca setiap file CSV
+        df = pd.read_csv(file_path)
+        dfs.append(df)
+
+# Menggabungkan semua DataFrame menjadi satu
+df = pd.concat(dfs, ignore_index=True)
+```
+
+Dengan menjalankan *script* tersebut, tergabung empat berkas menjadi satu berkas csv, dengan total baris sebanyak 948424 dan 22 kolom.
 
 ## Menangani *Missing Values*
 Pada tahap ini dilakukan penghapusan baris pada missing values, dengan harapan setiap baris pada data tidak terdapat missing values.
@@ -525,7 +549,7 @@ sedangkan data aktual adalah nilai sebenarnya yang dimiliki[^11].
 
 Dari tabel diatas merupakan gambaran dari *Confusion Matrix*, di mana TP adalah nilai prediksi benar sesuai dengan nilai aktual benar, FP adalah nilai prediksi benar sesuai dengan nilai aktual salah, FN adalah nilai prediksi salah sesuai dengan nilai aktual benar, FP adalah nilai prediksi salah sesuai dengan nilai aktual salah. Dari gambaran *Confusion Matrix* dapat dilakukan pengukuran performa model yaitu akurasi. Akurasi dapat digambarkan seberapa akurat machine learning dapat memprediksi nilai[^11]. 
 
-$Akurasi = \frac{TP + TN}{TP + TN + FP + FN}\$<br>
+$Akurasi = \frac{TP + TN}{TP + TN + FP + FN}$<br>
 di mana:
 - **TP** = True Positive (prediksi benar untuk kelas positif)
 - **TN** = True Negative (prediksi benar untuk kelas negatif)
