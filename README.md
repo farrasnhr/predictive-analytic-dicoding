@@ -131,16 +131,24 @@ IQR = Q3 - Q1
 # Menentukan outliers di luar rentang (Q1 - 1.5*IQR, Q3 + 1.5*IQR)
 outliers = ((numerik_df < (Q1 - 1.5 * IQR)) | (numerik_df > (Q3 + 1.5 * IQR)))
 ```
-Output diatas menunjukkan bahwa terdapat outliers pada beberapa fitur.
-Dataset yang telah diunduh, masih perlu dilakukan penyesuaian sampai dataset dapat digunakan dengan baik, beberapa diantaranya:
-- Menggabungkan 4 berkas menjadi 1 berkas
-- Melakukan penghapusan pada kolom yang tidak digunakan dalam model, yaitu kolom 
-- Mengganti tipe data pada kolom Date menjadi "datetime64" dan melakukan ekstraksi kolom Date untuk mendapatkan hari (Day), dan Jam (Hour) untuk kebutuhan EDA.
+**Jumlah outliers per kolom:**
 
-Setelah proses penyesuaian pada dataset, dilakukan EDA untuk melihat informasi apa saja yang didapatkan:
+| Kolom             | Jumlah Outliers |
+|-------------------|-----------------|
+| ID                | 2674            |
+| Beat              | 0               |
+| District          | 0               |
+| Ward              | 0               |
+| Community Area    | 0               |
+| X Coordinate      | 4928            |
+| Y Coordinate      | 2               |
+| Year              | 0               |
+| Latitude          | 2               |
+| Longitude         | 4999            |
+
+Output diatas menunjukkan bahwa terdapat outliers pada beberapa fitur.
 
 ### Deskripsi Variabel
-
 
 | #  | Kolom                | Non-Null Count | Dtype           |
 |----|-----------------------|----------------|-----------------|
@@ -166,6 +174,30 @@ Setelah proses penyesuaian pada dataset, dilakukan EDA untuk melihat informasi a
 | 19 | Latitude             | 934039         | float64         |
 | 20 | Longitude            | 934039         | float64         |
 | 21 | Location             | 934039         | object          |
+
+Dari informasi dataset diatas, dapat diuraikan fitur-fiturnya sebagai berikut:
+1. `ID` berisi nomor unik setiap kejadian,
+2. `Case Number` berisi informasi nomor kasus kejadian,
+3. `Date` berisi tanggal terjadinya kejahatan di Chicago,
+4. `Block` berisi alamat atau lokasi tempat kejadian,
+5. `IUCR` berisi kode klasifikasi Illinois Uniform Crime Reporting (IUCR) yang mewakili jenis kejahatan,
+6. `Primary Type` berisi informasi jenis kejahatan yang terjadi di Chicago,
+7. `Description` berisi deskripsi lebih rinci tentang kejahatan dalam kategori utama,
+8. `Location Description` berisi informasi terkait tempat kejadian,
+9. `Arrest` berisi informasi apakah ada penangkapan pelaku kejadian,
+10. `Domestic` berisi tentang apakah kejahatan tersebut berkaitan dengan kekerasan rumah tangga,
+11. `Beat` berisi informasi yang menunjukkan wilayah patroli kepolisian tempat kejadian kejahatan itu terjadi,
+12. `Distric` berisi tentang distrik kepolisian di mana kejadian dilaporkan,
+13. `Ward` berisi dimana wilayah administratif tempat kejadian terjadi,
+14. `Community Area` berisi kode wilayah komunitas atau area geografis tempat kejahatan itu terjadi,
+15. `FBI Code` berisi kode standar dari FBI yang mengklasifikasikan jenis kejahatan,
+16. `X Coordinate` berisi koordinat X untuk menunjukkan lokasi di peta,
+17. `Y Coordinate` berisi koordinat Y untuk menunjukkan lokasi di peta,
+18. `Year` berisi tahun kejadian terjadi,
+19. `Update On` berisi data tersebut diperbaharui,
+20. `Latitude` berisi tentang informasi koordinasi lokasi berupa garis lintang,
+21. `Longitude` berisi tentang informasi koordinasi lokasi berupa garis bujur,
+22. `Location` berisi gabungan fitur `Latitude` dan `Longitude`.
 
 Dari informasi dataset diatas, pada proyek ini akan memilih beberapa fitur untuk dimasukkan ke analisis dan modeling, diantaranya: `Primary Type`, `Date`, `Location Description`, `Arrest`, `Domestic`, `Beat`, `District` `Latitude`, `Longitude`, dan `Community Area`.
 
@@ -205,20 +237,10 @@ Dapat dilakukan deskripsi variabel sebagai berikut:
 | 10| Hour                 | 948424 non-null | int32         |
 | 11| Day of Week          | 948424 non-null | int32         |
 
-Dari tabel diatas dapat dilihat bahwa didalam dataset berisi 948424 baris dari 11 kolom. Dari 11 kolom memiliki variasi tipe data yang bervariasi yaitu terdapat tipe data `bool` dua kolom, `datetime64` satu kolom, `float64` 3 kolom, `int32` dua kolom, `int64` dua kolom, `object` dua kolom. kolom berisi informasi yakni:
+Dari tabel diatas dapat dilihat bahwa didalam dataset berisi 948424 baris dari 11 kolom. Dari 11 kolom memiliki variasi tipe data yang bervariasi yaitu terdapat tipe data `bool` dua kolom, `datetime64` satu kolom, `float64` 3 kolom, `int32` dua kolom, `int64` dua kolom, `object` dua kolom. kolom berisi informasi / fitur baru yakni:
 
-1. `Primary Type` berisi informasi jenis kejahatan yang terjadi di Chicago,
-2. `Date` berisi tanggal terjadinya kejahatan di Chicago,
-3. `Location Description` berisi informasi terkait tempat kejadian,
-4. `Arrest` berisi informasi apakah ada penangkapan pelaku kejadian,
-5. `Domestic` berisi tentang apakah kejahatan tersebut berkaitan dengan kekerasan rumah tangga,
-6. `Beat` berisi informasi yang menunjukkan wilayah patroli kepolisian tempat kejadian kejahatan itu terjadi,
-7. `Distric` berisi tentang distrik kepolisian di mana kejadian dilaporkan,
-8. `Latitude` berisi tentang informasi koordinasi lokasi berupa garis lintang,
-9. `Longitude` berisi tentang informasi koordinasi lokasi berupa garis bujur,
-10. `Community Area` berisi kode wilayah komunitas atau area geografis tempat kejahatan itu terjadi,
-11. `Hour` berisi informasi jam di mana kejadian dilaporkan terjadi, dalam format 24 jam (0-23),
-12. `Day of Week` berisi informasi hari dalam seminggu (0-6), di mana 0 adalah Ahad, 1 adalah Senin, dan seterusnya.
+1. `Hour` berisi informasi jam di mana kejadian dilaporkan terjadi, dalam format 24 jam (0-23),
+2. `Day of Week` berisi informasi hari dalam seminggu (0-6), di mana 0 adalah Ahad, 1 adalah Senin, dan seterusnya.
 
 ### Deskripsi Statistik
    
