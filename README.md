@@ -153,7 +153,7 @@ Dari script diatas terdapat `930769` duplikasi identik, dan setelah penghapusan 
 ### Penanganan Outliers
 Tahapan ini untuk melihat informasi berupa outliers pada dataset.
 
-![beforeoutliers](https://github.com/user-attachments/assets/69e37e69-785f-4fe8-8aa0-4f4d0409ff96)
+![beforeoutliers](https://github.com/user-attachments/assets/38503922-d966-45fd-91cc-102ead8f5b6d)
 
 Dari gambar diatas terdapat *outliers* pada `Longitude` dan `Latitude`, maka dari itu akan dilakukan penghapusan *outliers* dengan menggunakan metode IQR, dengan formula IQR sebagai berikut:
 
@@ -168,7 +168,7 @@ Dari gambar diatas terdapat *outliers* pada `Longitude` dan `Latitude`, maka dar
 
 Setelah dilakukan penghapusan *outliers*, dilakukan pengecekan kembali untuk melihat *outliers*, dan jumlah baris menurun menjadi `924193` baris.
 
-![afteroutliers](https://github.com/user-attachments/assets/106f6dad-f03c-4589-bb28-4bfa736f40f7)
+![afteroutliers](https://github.com/user-attachments/assets/b58c6f0b-8f8e-4560-9b81-a933142b58eb)
 
 Gambar diatas menunjukkan tidak ada *outliers* pada `Latitude`, pada `Longitude` terdapat masih terdapat *outliers*, tetapi outliers tersebut masih di batas aman.
 
@@ -176,7 +176,7 @@ Gambar diatas menunjukkan tidak ada *outliers* pada `Latitude`, pada `Longitude`
 ### Univariate Analysis
 Tahapan ini ditujukan unutk melihat informasi dari fitur numerik pada dataset, berikut informasi dalam bentuk histogram:
 
-![univariate](https://github.com/user-attachments/assets/1ee81328-14de-4070-9f20-7182ae8b0cd0)
+![univariate](https://github.com/user-attachments/assets/108ac1cf-d229-4684-813d-67eeaa9144e1)
 
 Dari hasil histogram diatas dapat diuraikan sebagai berikut:
 1. `Date`: 
@@ -203,24 +203,24 @@ Pada Multivariate Analysis akan menunjukkan informasi berupa 1 variabel berkaita
 1. Fitur Kategori
    Pada fitur kategori ini diberikan informasi sebagai berikut:
    - Distribusi jenis kejahatan berdasarkan jam kejadian
-     ![Distribusi Jenis Kejahatan berdasarkan Jam Kejadian](https://github.com/user-attachments/assets/0fa010bb-de85-4e01-91c7-78a8f88be688)
+     ![Distribusi Jenis Kejahatan berdasarkan Jam Kejadian](https://github.com/user-attachments/assets/307a43ae-b9b8-451e-98bc-cf4dcc6b44e6)
    - Distribusi jenis kejahatan berdasarkan hari dalam seminggu
-     ![Distribusi Jenis Kejahatan Berdasarkan Hari dalam Seminggu](https://github.com/user-attachments/assets/b6d4a455-4585-4e96-8183-7fd1aae17d06)
+     ![Distribusi Jenis Kejahatan Berdasarkan Hari dalam Seminggu](https://github.com/user-attachments/assets/50ff08a2-8c29-49cc-8acb-ed4dc09237e7)
    - Rata-rata jam kejadian per jenis kejahatan
-     ![Rata-rata Jam Kejadian per Jenis Kejahatan](https://github.com/user-attachments/assets/e7b4353c-0c0d-4875-9370-27ba6e9e96b6)
+     ![Rata-rata Jam Kejadian per Jenis Kejahatan](https://github.com/user-attachments/assets/0a1ff98f-3146-43f2-8d85-2c0626c11055)
    - Jenis kejahatan berdasarkan Hour, Arrest, dan Domestic
-     ![Jenis Kejahatan Berdasarkan Jam, Arrest, dan Domestic](https://github.com/user-attachments/assets/c884ca1c-7f1c-41a5-ab23-7e36e743f5c0)
+     ![Jenis Kejahatan Berdasarkan Jam, Arrest, dan Domestic](https://github.com/user-attachments/assets/2b1a9a75-fe13-449d-90bb-5dceac976225)
    - Distribusi lokasi kejahatan berdasarkan Community Area
-     ![Distribusi Lokasi Kejahatan Berdasarkan Community Area](https://github.com/user-attachments/assets/130b61e4-130c-4c43-a054-6c7345e23f41)
+     ![Distribusi Lokasi Kejahatan Berdasarkan Community Area](https://github.com/user-attachments/assets/7bfe74c5-0581-4f04-8115-e74b07077c2f)
    - Distribusi jenis kejahatan berdasarkan Lokasi
-     ![Distribusi Jenis Kejahatan Berdasarkan Lokasi](https://github.com/user-attachments/assets/a5fae387-6685-4a9e-a8f9-69bd1c1fb4be)
+     ![Distribusi Jenis Kejahatan Berdasarkan Lokasi](https://github.com/user-attachments/assets/a146402e-8bf0-490a-8d9e-2e42926fe7c4)
    - Distribusi lokasi kejahatan berdasarkan waktu (Hour)
-     ![Distribusi Lokasi Kejahatan Berdasarkan Waktu (Hour)](https://github.com/user-attachments/assets/a98526dd-4037-4183-a452-700a4fc9b759)
+     ![Distribusi Lokasi Kejahatan Berdasarkan Waktu (Hour)](https://github.com/user-attachments/assets/effb8243-ffe6-4828-a051-b070ede1a81d)
 2. Fitur Numerik
-   ![multivariate](https://github.com/user-attachments/assets/be5824fd-0d40-49d9-845a-de36c5907adf)
+   ![multivariate](https://github.com/user-attachments/assets/c3a94989-9c08-4373-a6f9-461692d48c8c)
 4. Matriks Korelasi<br>
    Melakukan visualisasi pada fitur numerik untuk mengetahui korelasi antar fitur
-   ![Matriks Korelasi untuk Fitur Numerik](https://github.com/user-attachments/assets/172643ee-907c-48cd-b21f-c937eeae0eda)
+   ![Matriks Korelasi untuk Fitur Numerik](https://github.com/user-attachments/assets/400eaa00-19a9-4994-a0b3-c305596b9e23)
     Melihat fitur `Hour` dan `Day of Week` korelasi kedua fitur tersebut  lemah dan juga fitur `Date` hanya digunakan untuk proses EDA, maka ketiga fitur tersebut akan didrop.
 
 # Data Preperation<br>
@@ -392,7 +392,7 @@ model_accuracies = {
 
 Dan dapat divisualisasikan sebagai berikut:
 
-![akurasi](https://github.com/user-attachments/assets/edbf92f8-8f51-45cf-a46e-c47e1fba5690)<br>
+![akurasi](https://github.com/user-attachments/assets/fc32c324-f9d6-448d-a239-c166aafda80c)<br>
 
 Dari hasil perhitungan akurasi model, terlihat bahwa model Naive Bayes dan KNN menunjukkan performa yang berbeda pada data latih dan data uji. Model Naive Bayes memiliki akurasi sebesar 0.7166 pada data latih dan 0.9865 pada data uji. Sementara itu, model KNN menunjukkan akurasi 0.7156 pada data latih dan 0.9774 pada data uji.
 
