@@ -280,14 +280,14 @@ Dari hasil histogram diatas dapat diuraikan sebagai berikut:
    - Distribusi kejadian kejahatan berdasarkan hari dalam seminggu. Secara umum, tingkat kejahatan terlihat cukup merata sepanjang minggu.<br>
 
 Analisis Univariate ini juga dilakukan pada fitur kategorikal sebagai berikut:
-1. `Distribusi Frekuensi Jenis Kejahatan (Primary Type),
-   ![Distribusi Frekuensi Jenis Kejahatan (Primary Type)')](https://github.com/user-attachments/assets/e3a252f3-2c6b-49a2-a24b-ccd748de8a31)
-2. Distribusi Frekuensi Tempat Kejadian (Location Description),
-   ![Distribusi Frekuensi Tempat Kejadian (Location Description)](https://github.com/user-attachments/assets/ae2869d6-6b1f-4bec-9a8b-18d17ca3b66c)
-3. Distribusi Kejadian dengan Penangkapan (Arrest),
-   ![Distribusi Kejadian dengan Penangkapan (Arrest)](https://github.com/user-attachments/assets/ff76cde7-b8f6-46a0-bbf3-99cfc2cc3944)
-4. Distribusi jenis kejahatan Domestic,
-   ![Distribusi jenis kejahatan Domestic](https://github.com/user-attachments/assets/78c6668b-3c8a-4677-864c-39f769037cc3)
+1. `Distribusi Frekuensi Jenis Kejahatan (Primary Type),<br>
+   ![Distribusi Frekuensi Jenis Kejahatan (Primary Type)')](https://github.com/user-attachments/assets/e3a252f3-2c6b-49a2-a24b-ccd748de8a31)<br>
+2. Distribusi Frekuensi Tempat Kejadian (Location Description),<br>
+   ![Distribusi Frekuensi Tempat Kejadian (Location Description)](https://github.com/user-attachments/assets/ae2869d6-6b1f-4bec-9a8b-18d17ca3b66c)<br>
+3. Distribusi Kejadian dengan Penangkapan (Arrest),<br>
+   ![Distribusi Kejadian dengan Penangkapan (Arrest)](https://github.com/user-attachments/assets/ff76cde7-b8f6-46a0-bbf3-99cfc2cc3944)<br>
+4. Distribusi jenis kejahatan Domestic,<br>
+   ![Distribusi jenis kejahatan Domestic](https://github.com/user-attachments/assets/78c6668b-3c8a-4677-864c-39f769037cc3)<br>
 
 ### Multivariate Analysis
 
